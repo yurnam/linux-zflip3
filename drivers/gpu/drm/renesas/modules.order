@@ -1,0 +1,5 @@
+drivers/gpu/drm/renesas/rcar-du/rcar_cmm.o
+drivers/gpu/drm/renesas/rcar-du/rcar-du-drm.o
+drivers/gpu/drm/renesas/rcar-du/rcar_dw_hdmi.o
+drivers/gpu/drm/renesas/rcar-du/rcar_lvds.o
+drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.o

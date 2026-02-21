@@ -1,4 +1,4 @@
-cmd_scripts/dtc/checks.o := gcc -Wp,-MMD,scripts/dtc/.checks.o.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu11 -Wdeclaration-after-statement     -I ./scripts/dtc/libfdt -DNO_YAML  -c -o scripts/dtc/checks.o scripts/dtc/checks.c
+savedcmd_scripts/dtc/checks.o := gcc -Wp,-MMD,scripts/dtc/.checks.o.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu11   -I ./scripts/dtc/libfdt -DNO_YAML  -c -o scripts/dtc/checks.o scripts/dtc/checks.c
 
 source_scripts/dtc/checks.o := scripts/dtc/checks.c
 

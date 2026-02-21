@@ -31,6 +31,8 @@
 #define RMI_PDT_FUNCTION_VERSION_MASK   0x60
 #define RMI_PDT_INT_SOURCE_COUNT_MASK   0x07
 
+#define RMI_OF_PDT_DESC_CELLS 2
+
 #define PDT_START_SCAN_LOCATION 0x00e9
 #define PDT_END_SCAN_LOCATION	0x0005
 #define RMI4_END_OF_PDT(id) ((id) == 0x00 || (id) == 0xff)
@@ -44,6 +46,12 @@ struct pdt_entry {
 	u8 interrupt_source_count;
 	u8 function_version;
 	u8 function_number;
+};
+
+struct pdt_scan_state {
+	u8 empty_pages;
+	u8 pdt_count;
+	u8 pdts[254];
 };
 
 #define RMI_REG_DESC_PRESENSE_BITS	(32 * BITS_PER_BYTE)

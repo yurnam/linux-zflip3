@@ -70,6 +70,7 @@ struct secondary_data {
 extern struct secondary_data cpuboot_data;
 
 extern asmlinkage void smpboot_entry(void);
+extern asmlinkage void start_secondary(void);
 
 extern void calculate_cpu_foreign_map(void);
 
@@ -77,16 +78,6 @@ extern void calculate_cpu_foreign_map(void);
  * Generate IPI list text
  */
 extern void show_ipi_list(struct seq_file *p, int prec);
-
-/*
- * This function sends a 'reschedule' IPI to another CPU.
- * it goes straight through and wastes no time serializing
- * anything. Worst case is that we lose a reschedule ...
- */
-static inline void smp_send_reschedule(int cpu)
-{
-	loongson_send_ipi_single(cpu, SMP_RESCHEDULE);
-}
 
 static inline void arch_send_call_function_single_ipi(int cpu)
 {
@@ -108,8 +99,6 @@ static inline void __cpu_die(unsigned int cpu)
 {
 	loongson_cpu_die(cpu);
 }
-
-extern void play_dead(void);
 #endif
 
 #endif /* __ASM_SMP_H */

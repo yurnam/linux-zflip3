@@ -1,0 +1,3 @@
+drivers/usb/host/ehci-brcm.o
+drivers/usb/host/xhci-pci.o
+drivers/usb/host/xhci-pci-renesas.o

@@ -1,0 +1,11 @@
+sound/hda/core/hda_bus_type.o
+sound/hda/core/bus.o
+sound/hda/core/device.o
+sound/hda/core/sysfs.o
+sound/hda/core/regmap.o
+sound/hda/core/controller.o
+sound/hda/core/stream.o
+sound/hda/core/array.o
+sound/hda/core/hdmi_chmap.o
+sound/hda/core/trace.o
+sound/hda/core/component.o

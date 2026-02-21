@@ -1,0 +1,12 @@
+sound/soc/renesas/rcar/core.o
+sound/soc/renesas/rcar/gen.o
+sound/soc/renesas/rcar/dma.o
+sound/soc/renesas/rcar/adg.o
+sound/soc/renesas/rcar/ssi.o
+sound/soc/renesas/rcar/ssiu.o
+sound/soc/renesas/rcar/src.o
+sound/soc/renesas/rcar/ctu.o
+sound/soc/renesas/rcar/mix.o
+sound/soc/renesas/rcar/dvc.o
+sound/soc/renesas/rcar/cmd.o
+sound/soc/renesas/rcar/debugfs.o

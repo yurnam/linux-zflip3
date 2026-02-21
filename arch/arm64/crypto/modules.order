@@ -1,0 +1,3 @@
+arch/arm64/crypto/sm3-ce.o
+arch/arm64/crypto/aes-neon-blk.o
+arch/arm64/crypto/aes-neon-bs.o

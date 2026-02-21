@@ -1,4 +1,4 @@
-cmd_scripts/dtc/srcpos.o := gcc -Wp,-MMD,scripts/dtc/.srcpos.o.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu11 -Wdeclaration-after-statement     -I ./scripts/dtc/libfdt -DNO_YAML  -c -o scripts/dtc/srcpos.o scripts/dtc/srcpos.c
+savedcmd_scripts/dtc/srcpos.o := gcc -Wp,-MMD,scripts/dtc/.srcpos.o.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu11   -I ./scripts/dtc/libfdt -DNO_YAML  -c -o scripts/dtc/srcpos.o scripts/dtc/srcpos.c
 
 source_scripts/dtc/srcpos.o := scripts/dtc/srcpos.c
 

@@ -1,0 +1,2 @@
+drivers/slimbus/slimbus.o
+drivers/slimbus/slim-qcom-ngd-ctrl.o

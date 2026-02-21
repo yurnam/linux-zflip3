@@ -1,173 +1,17 @@
 // SPDX-License-Identifier: BSD-3-Clause
 /*
- * Copyright (c) 2021, The Linux Foundation. All rights reserved.
- * Copyright (c) 2022, Mainline contributors
- *
- * Device tree for the Samsung Galaxy Z Flip3 5G (SM-F711B/DS, Europe)
- * SoC: Qualcomm SM8350 (Snapdragon 888)
+ * Copyright (c) 2023 Igalia S.L.
+ * Authors:
+ *	Nia Espera <nespera@igalia.com>
  */
 
 /dts-v1/;
 
-#include <dt-bindings/gpio/gpio.h>
-#include <dt-bindings/input/input.h>
-#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-#include "sm8350.dtsi"
-#include "pm8350.dtsi"
-#include "pm8350b.dtsi"
-#include "pm8350c.dtsi"
-#include "pmk8350.dtsi"
-#include "pmr735a.dtsi"
-#include "pmr735b.dtsi"
+#include "sm8350-oneplus-common.dtsi"
 
 / {
 	model = "Samsung Galaxy Z Flip3 5G";
 	compatible = "samsung,b2q-eur", "qcom,sm8350";
 	chassis-type = "handset";
-
-	aliases {
-		serial0 = &uart2;
-	};
-
-	chosen {
-		#address-cells = <2>;
-		#size-cells = <2>;
-		ranges;
-
-		stdout-path = "serial0:115200n8";
-
-		framebuffer: framebuffer@e4000000 {
-			compatible = "simple-framebuffer";
-			reg = <0 0xe4000000 0 0x2300000>;
-
-			width = <1080>;
-			height = <2640>;
-			stride = <(1080 * 4)>;
-			format = "a8r8g8b8";
-			clocks = <&gcc GCC_DISP_HF_AXI_CLK>,
-				 <&gcc GCC_DISP_SF_AXI_CLK>;
-		};
-	};
-
-	/*
-	 * Supply to all PM8350 SMPS/LDO rails. The actual supply comes from
-	 * the battery/charger, but modelled as a fixed regulator for simplicity.
-	 */
-	vph_pwr: vph-pwr-regulator {
-		compatible = "regulator-fixed";
-		regulator-name = "vph_pwr";
-		regulator-min-microvolt = <3700000>;
-		regulator-max-microvolt = <3700000>;
-		regulator-always-on;
-		regulator-boot-on;
-	};
-
-	reserved-memory {
-		cont_splash_mem: memory@e4000000 {
-			reg = <0 0xe4000000 0 0x2300000>;
-			no-map;
-		};
-
-		ramoops@f0b00000 {
-			compatible = "ramoops";
-			reg = <0 0xf0b00000 0 0x100000>;
-			record-size = <0x40000>;
-			console-size = <0x40000>;
-			ftrace-size = <0x40000>;
-			pmsg-size = <0x40000>;
-		};
-	};
-
-	gpio-keys {
-		compatible = "gpio-keys";
-
-		key-vol-up {
-			label = "Volume Up";
-			linux,code = <KEY_VOLUMEUP>;
-			gpios = <&pmk8350_gpios 3 GPIO_ACTIVE_LOW>;
-			debounce-interval = <15>;
-			linux,can-disable;
-			gpio-key,wakeup;
-		};
-	};
 };
 
-&adsp {
-	status = "okay";
-	firmware-name = "qcom/sm8350/samsung/adsp.mbn";
-};
-
-&cdsp {
-	status = "okay";
-	firmware-name = "qcom/sm8350/samsung/cdsp.mbn";
-};
-
-&ipa {
-	status = "okay";
-	memory-region = <&pil_ipa_fw_mem>;
-	firmware-name = "qcom/sm8350/samsung/ipa_fws.mbn";
-};
-
-&mpss {
-	status = "okay";
-	firmware-name = "qcom/sm8350/samsung/modem.mbn";
-};
-
-&pmk8350_rtc {
-	status = "okay";
-};
-
-&pon_pwrkey {
-	status = "okay";
-};
-
-&pon_resin {
-	status = "okay";
-	linux,code = <KEY_VOLUMEDOWN>;
-};
-
-&qupv3_id_0 {
-	status = "okay";
-};
-
-&qupv3_id_1 {
-	status = "okay";
-};
-
-&qupv3_id_2 {
-	status = "okay";
-};
-
-&slpi {
-	status = "okay";
-	firmware-name = "qcom/sm8350/samsung/slpi.mbn";
-};
-
-/* NOTE: UFS must not be touched - doing so risks bricking the device */
-&ufs_mem_hc { status = "disabled"; };
-&ufs_mem_phy { status = "disabled"; };
-
-&uart2 {
-	status = "okay";
-};
-
-/* USB is available in high-speed only until QMP PHY support is wired up */
-&usb_1 {
-	status = "okay";
-	qcom,select-utmi-as-pipe-clk;
-};
-
-&usb_1_dwc3 {
-	dr_mode = "peripheral";
-	maximum-speed = "high-speed";
-	phys = <&usb_1_hsphy>;
-	phy-names = "usb2-phy";
-};
-
-&usb_1_hsphy {
-	status = "okay";
-};
-
-&usb_1_qmpphy {
-	status = "okay";
-};

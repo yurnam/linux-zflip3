@@ -1,0 +1,2 @@
+drivers/scsi/raid_class.o
+drivers/scsi/mpt3sas/mpt3sas.o

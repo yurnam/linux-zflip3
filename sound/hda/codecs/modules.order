@@ -1,0 +1,7 @@
+sound/hda/codecs/hdmi/snd-hda-codec-hdmi.o
+sound/hda/codecs/hdmi/snd-hda-codec-simplehdmi.o
+sound/hda/codecs/hdmi/snd-hda-codec-intelhdmi.o
+sound/hda/codecs/hdmi/snd-hda-codec-atihdmi.o
+sound/hda/codecs/hdmi/snd-hda-codec-nvhdmi.o
+sound/hda/codecs/hdmi/snd-hda-codec-nvhdmi-mcp.o
+sound/hda/codecs/hdmi/snd-hda-codec-tegrahdmi.o

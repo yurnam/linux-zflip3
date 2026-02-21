@@ -1,0 +1,6 @@
+drivers/usb/typec/typec.o
+drivers/usb/typec/tcpm/tcpm.o
+drivers/usb/typec/tcpm/fusb302.o
+drivers/usb/typec/tcpm/tcpci.o
+drivers/usb/typec/tipd/tps6598x.o
+drivers/usb/typec/hd3ss3220.o

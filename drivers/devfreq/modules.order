@@ -1,0 +1,3 @@
+drivers/devfreq/governor_userspace.o
+drivers/devfreq/imx-bus.o
+drivers/devfreq/imx8m-ddrc.o

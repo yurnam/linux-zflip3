@@ -1,4 +1,4 @@
-cmd_scripts/dtc/dtc-parser.tab.o := gcc -Wp,-MMD,scripts/dtc/.dtc-parser.tab.o.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu11 -Wdeclaration-after-statement     -I ./scripts/dtc/libfdt -DNO_YAML -I ./scripts/dtc -c -o scripts/dtc/dtc-parser.tab.o scripts/dtc/dtc-parser.tab.c
+savedcmd_scripts/dtc/dtc-parser.tab.o := gcc -Wp,-MMD,scripts/dtc/.dtc-parser.tab.o.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu11   -I ./scripts/dtc/libfdt -DNO_YAML -I ./scripts/dtc -c -o scripts/dtc/dtc-parser.tab.o scripts/dtc/dtc-parser.tab.c
 
 source_scripts/dtc/dtc-parser.tab.o := scripts/dtc/dtc-parser.tab.c
 

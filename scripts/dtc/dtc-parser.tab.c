@@ -87,6 +87,12 @@ extern void yyerror(char const *s);
 extern struct dt_info *parser_output;
 extern bool treesource_error;
 
+static bool is_ref_relative(const char *ref)
+{
+	return ref[0] != '/' && strchr(&ref[1], '/');
+}
+
+
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -586,16 +592,16 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   101,   101,   109,   113,   120,   121,   131,   134,   141,
-     145,   152,   152,   155,   159,   163,   177,   188,   207,   226,
-     238,   253,   261,   264,   271,   275,   279,   283,   291,   295,
-     299,   303,   308,   324,   334,   342,   345,   349,   356,   377,
-     382,   401,   415,   422,   423,   424,   431,   435,   436,   440,
-     441,   445,   446,   450,   451,   455,   456,   460,   461,   465,
-     466,   467,   471,   472,   473,   474,   475,   479,   480,   481,
-     485,   486,   487,   491,   492,   501,   510,   514,   515,   516,
-     517,   522,   525,   529,   537,   540,   544,   552,   556,   560,
-     564
+       0,   107,   107,   115,   119,   126,   127,   137,   140,   147,
+     151,   158,   158,   161,   165,   169,   185,   199,   220,   239,
+     251,   266,   274,   277,   284,   288,   292,   296,   304,   308,
+     312,   316,   321,   337,   347,   355,   358,   362,   369,   390,
+     395,   419,   433,   440,   441,   442,   449,   453,   454,   458,
+     459,   463,   464,   468,   469,   473,   474,   478,   479,   483,
+     484,   485,   489,   490,   491,   492,   493,   497,   498,   499,
+     503,   504,   505,   509,   510,   519,   528,   532,   533,   534,
+     535,   540,   543,   547,   555,   558,   562,   570,   574,   578,
+     582
 };
 #endif
 
@@ -1452,6 +1458,8 @@ yyreduce:
 			 */
 			if (!((yyvsp[(-1) - (2)].flags) & DTSF_PLUGIN))
 				ERROR(&(yylsp[0]), "Label or path %s not found", (yyvsp[-1].labelref));
+			else if (is_ref_relative((yyvsp[-1].labelref)))
+				ERROR(&(yylsp[0]), "Label-relative reference %s not supported in plugin", (yyvsp[-1].labelref));
 			(yyval.node) = add_orphan_node(
 					name_node(build_node(NULL, NULL, NULL),
 						  ""),
@@ -1462,6 +1470,9 @@ yyreduce:
   case 16: /* devicetree: devicetree DT_LABEL dt_ref nodedef  */
                 {
 			struct node *target = get_node_by_ref((yyvsp[-3].node), (yyvsp[-1].labelref));
+
+			if (((yyvsp[(-1) - (4)].flags) & DTSF_PLUGIN) && is_ref_relative((yyvsp[-1].labelref)))
+				ERROR(&(yylsp[-2]), "Label-relative reference %s not supported in plugin", (yyvsp[-1].labelref));
 
 			if (target) {
 				add_label(&target->labels, (yyvsp[-2].labelref));
@@ -1480,6 +1491,8 @@ yyreduce:
 			 * so $-1 is what we want (plugindecl)
 			 */
 			if ((yyvsp[(-1) - (3)].flags) & DTSF_PLUGIN) {
+				if (is_ref_relative((yyvsp[-1].labelref)))
+					ERROR(&(yylsp[-1]), "Label-relative reference %s not supported in plugin", (yyvsp[-1].labelref));
 				add_orphan_node((yyvsp[-2].node), (yyvsp[0].node), (yyvsp[-1].labelref));
 			} else {
 				struct node *target = get_node_by_ref((yyvsp[-2].node), (yyvsp[-1].labelref));
@@ -1706,9 +1719,14 @@ yyreduce:
 				 * within the mask to one (i.e. | in the
 				 * mask), all bits are one.
 				 */
-				if (((yyvsp[0].integer) > mask) && (((yyvsp[0].integer) | mask) != -1ULL))
-					ERROR(&(yylsp[0]), "Value out of range for"
-					      " %d-bit array element", (yyvsp[-1].array).bits);
+				if (((yyvsp[0].integer) > mask) && (((yyvsp[0].integer) | mask) != -1ULL)) {
+					char *loc = srcpos_string(&(yylsp[0]));
+					fprintf(stderr,
+						"WARNING: %s: Value 0x%016" PRIx64
+						" truncated to 0x%0*" PRIx64 "\n",
+						loc, (yyvsp[0].integer), (yyvsp[-1].array).bits / 4, ((yyvsp[0].integer) & mask));
+					free(loc);
+				}
 			}
 
 			(yyval.array).data = data_append_integer((yyvsp[-1].array).data, (yyvsp[0].integer), (yyvsp[-1].array).bits);

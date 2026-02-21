@@ -1,0 +1,3 @@
+drivers/platform/chrome/cros_typec_switch.o
+drivers/platform/chrome/cros-ec-typec.o
+drivers/platform/chrome/cros_ec_chardev.o

@@ -1,4 +1,4 @@
-cmd_scripts/dtc/data.o := gcc -Wp,-MMD,scripts/dtc/.data.o.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu11 -Wdeclaration-after-statement     -I ./scripts/dtc/libfdt -DNO_YAML  -c -o scripts/dtc/data.o scripts/dtc/data.c
+savedcmd_scripts/dtc/data.o := gcc -Wp,-MMD,scripts/dtc/.data.o.d -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu11   -I ./scripts/dtc/libfdt -DNO_YAML  -c -o scripts/dtc/data.o scripts/dtc/data.c
 
 source_scripts/dtc/data.o := scripts/dtc/data.c
 

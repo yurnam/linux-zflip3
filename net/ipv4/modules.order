@@ -1,0 +1,5 @@
+net/ipv4/netfilter/nf_defrag_ipv4.o
+net/ipv4/netfilter/nf_reject_ipv4.o
+net/ipv4/netfilter/ip_tables.o
+net/ipv4/ip_tunnel.o
+net/ipv4/tunnel4.o

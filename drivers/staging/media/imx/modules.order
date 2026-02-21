@@ -1,0 +1,3 @@
+drivers/staging/media/imx/imx-media-common.ko
+drivers/staging/media/imx/imx7-media-csi.ko
+drivers/staging/media/imx/imx8mq-mipi-csi2.ko

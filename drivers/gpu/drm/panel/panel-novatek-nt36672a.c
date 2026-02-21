@@ -16,7 +16,6 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/of.h>
-#include <linux/of_device.h>
 
 #include <linux/gpio/consumer.h>
 #include <linux/pinctrl/consumer.h>
@@ -115,7 +114,7 @@ static int nt36672a_panel_power_off(struct drm_panel *panel)
 	return ret;
 }
 
-static int nt36672a_panel_unprepare(struct drm_panel *panel)
+static int nt36672a_panel_disable(struct drm_panel *panel)
 {
 	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
 	int ret;
@@ -143,6 +142,14 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
 
 	/* 0x3C = 60ms delay */
 	msleep(60);
+
+	return ret;
+}
+
+static int nt36672a_panel_unprepare(struct drm_panel *panel)
+{
+	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
+	int ret;
 
 	ret = nt36672a_panel_power_off(panel);
 	if (ret < 0)
@@ -255,6 +262,7 @@ static int nt36672a_panel_get_modes(struct drm_panel *panel,
 }
 
 static const struct drm_panel_funcs panel_funcs = {
+	.disable = nt36672a_panel_disable,
 	.unprepare = nt36672a_panel_unprepare,
 	.prepare = nt36672a_panel_prepare,
 	.get_modes = nt36672a_panel_get_modes,
@@ -627,6 +635,7 @@ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
 				     "failed to get reset gpio from DT\n");
 
 	drm_panel_init(&pinfo->base, dev, &panel_funcs, DRM_MODE_CONNECTOR_DSI);
+	pinfo->base.prepare_prev_first = true;
 
 	ret = drm_panel_of_backlight(&pinfo->base);
 	if (ret)
