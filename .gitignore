@@ -1,0 +1,16 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.ko
+*.dtb
+*.d
+*.cmd
+*.tmp
+.config
+.config.old
+include/config/
+include/generated/
+arch/*/boot/dts/*/*.dtb
+arch/*/boot/dts/*/.*.cmd
+arch/*/boot/dts/*/.*.tmp
