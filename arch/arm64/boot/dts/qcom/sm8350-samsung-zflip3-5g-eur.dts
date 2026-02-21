@@ -21,14 +21,6 @@
 	model = "Samsung Galaxy Z Flip3 5G";
 	compatible = "samsung,b2q-eur", "qcom,sm8350";
 	chassis-type = "handset";
-	qcom,msm-id = <0x19f 0x20001 0x1c8 0x20001 0x1f5 0x20001>;
-	interrupt-parent = <0x01>;
-	#address-cells = <0x02>;
-	#size-cells = <0x02>;
-	qcom,board-id = <0x00 0x00>;
-	dtbo-version = <0x00>;
-
-
 
 	aliases {
 		serial0 = &uart2;
@@ -41,9 +33,9 @@
 		#size-cells = <2>;
 		ranges;
 
-		framebuffer: framebuffer@e4000000 {
+		framebuffer: framebuffer@e1000000 {
 			compatible = "simple-framebuffer";
-			reg = <0 0xe4000000 0 0x2300000>;
+			reg = <0 0xe1000000 0 0x2300000>;
 			width = <1080>;
 			height = <2640>;
 			stride = <(1080 * 4)>;
@@ -58,8 +50,8 @@
 	};
 
 	reserved-memory {
-		cont_splash_mem: memory@e4000000 {
-			reg = <0 0xe4000000 0 0x2300000>;
+		cont_splash_mem: memory@e1000000 {
+			reg = <0 0xe1000000 0 0x2300000>;
 			no-map;
 		};
 	};
