@@ -14,3 +14,9 @@ include/generated/
 arch/*/boot/dts/*/*.dtb
 arch/*/boot/dts/*/.*.cmd
 arch/*/boot/dts/*/.*.tmp
+
+# Kernel build artifacts
+vmlinux
+vmlinux.unstripped
+**/vmlinux
+**/vmlinux.unstripped
